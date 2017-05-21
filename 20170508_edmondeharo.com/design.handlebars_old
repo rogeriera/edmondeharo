@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>{{#if_all project.title config.is_direct_link}}{{ project.title }} - {{ site.website_title }}{{else}}{{ site.website_title }}{{/if_all}}</title>
+
+		<meta name="ROBOTS" content="INDEX,FOLLOW">
+		<meta name="description" content="{{#if project.excerpt}}{{ project.excerpt }}{{else}}{{ site.meta_description }}{{/if}}">
+		<meta name="keywords" content="{{ site.meta_tags }}">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta id="viewport" name='viewport'>
+		
+		<meta property="og:url" content="{{#if config.is_direct_link}}{{ project.direct_link }}{{else}}{{site.direct_link}}{{/if}}">		
+		<meta property="og:title" content="{{#if_all project.title config.is_direct_link}}{{ project.title }} - {{ site.website_title }}{{else}}{{ site.website_title }}{{/if_all}}">		
+		<meta property="og:description" content="{{#if project.excerpt}}{{ project.excerpt_long }}{{else}}{{ site.meta_description }}{{/if}}">
+		<meta property="og:image" content="{{#if_equal project.type "project"}}{{ project.thumb_url_2x }}{{else}}{{ site.header_url }}{{/if_equal}}">
+
+		{{{ site.meta_head }}}
+
+		<link href="{{ site.favicon_url }}" rel="shortcut icon">
+		<link href="{{ site.rss_url }}" rel="alternate" type="application/rss+xml" title="{{ site.website_title }} feed">
+
+		{{{ cargo_package }}}
+
+		<script src="/_jsapps/_libs/cargo_plugins/elementResizer.js"></script>
+		<script src="{{#asset}}vein.js{{/asset}}"></script>
+		<script src="{{#asset}}masonry.min.js{{/asset}}"></script>
+		<script src="{{#asset}}jquery.resizeMedia.js{{/asset}}"></script>
+		<script src="{{#asset}}betelgeuse.js{{/asset}}"></script>
+		<script src="{{ site.files.[thumb_size.json] }}"></script>
+		<script src="{{#asset}}mobile-detect.min.js{{/asset}}"></script>
+
+	</head>
+	<body data-bodyview="{{ route.body_view }}">
+
+		{{{ site.custom_html }}}
+
+		{{! The global loading indicator }}
+		<div class="loading" data-loading="page">
+			{{>loading_animation}}
+		</div>
+
+	<div class="navigation">
+	  <div class="nav_wrapper" id="autopagination_wrapper" data-view="Navigation" data-set="Navigation">
+	  {{#navigation}}
+		<div id="menu_{{ id }}" class="{{ type }}_link" data-type="{{ type }}" data-id="{{ id }}">
+		  <a id="p{{ id }}" {{#if link_url }}target="{{ link_target }}" href="{{ link_url }}"{{else}} href="{{ url }}" {{#unless_all is_set route.search}}rel="history"{{/unless_all}}{{/if}}>
+			{{ title_no_html }}
+		  </a>
+		</div>
+	  {{/navigation}}
+	  </div>
+
+	  {{#if_option "following_link_in_nav"}}
+	  <div class="following" data-type="following">
+		<a href="{{ site.following_url }}">Following</a> ({{ site.following_count }})
+	  </div>
+	  {{/if_option}}
+
+	</div>
+
+		{{! Navigation }}
+		<div class="site_header">
+
+			{{#if site.header_url}}
+			<div class="header_image">
+
+				{{#if_option "header_link_to_index"}}
+					{{#if_any route.search route.is_set}}
+						<a href="{{ site.direct_link }}">
+					{{else}}
+						<a href="{{ site.direct_link }}" rel="show_index">
+					{{/if_any}}
+				{{/if_option}}
+					<img src="{{ site.header_url }}" {{#if display_options.header_2x}} height="{{ site.header_height_2x }}" width="{{ site.header_width_2x }}" {{else}} height="{{ site.header_height }}" width="{{ site.header_width }}" {{/if}} />
+				{{#if_option "header_link_to_index"}}
+					</a>
+				{{/if_option}}
+
+			</div>
+			{{/if}}
+
+			<div class="header_text">
+				<a href="{{ site.direct_link }}" {{#if_any route.search route.is_set}}{{else}}rel="show_index"{{/if_any}}>
+					{{{ site.header_text }}}
+				</a>
+			</div>
+
+	  {{#if_option "show_sets"}}
+	  <div class="sets">
+		{{#sets}}
+		  <div id="menu_{{ id }}" {{#if_equal config.set_id id}}class="active"{{/if_equal}} data-title="{{title_no_html}}" data-id="{{ id }}">
+			<a id="p{{ id }}" href="{{ url }}">
+			  {{ title_no_html }}
+			</a>
+		  </div>
+		{{/sets}}
+	  </div>
+	  {{/if_option}}
+
+			{{#if site.filter}}
+				<div class="filter">Filter: {{ site.filter }}</b> <a class="view_all" href="{{ site.direct_link }}">view all</a></div>
+			{{/if}}
+
+		</div>
+
+{{#route index "/"}}
+		<div class="container">
+
+			<div id="project" class="project clear" data-view="ProjectDetail" data-set="Project">
+
+		<div class="project_nav" data-type="{{ project.type }}">
+		  {{#if_option "next_link_in_project"}}
+			<a href="#" class="previous" rel="prev_project">Prev</a>
+		  {{/if_option}}
+
+		  {{#if_option "next_link_in_project"}}
+			<a href="#" class="next" rel="next_project">Next</a>
+		  {{/if_option}}
+
+		  {{#if_option "index_link_in_project"}}
+			<a href="#" class="show_index_icon" rel="show_index">✕</a> <a href="#" class="index" rel="show_index">Index</a>
+		  {{/if_option}}
+		</div>
+
+				<div class="entry" data-id="{{ project.id }}">
+
+		  <div class="project_media" data-resize-parent data-elementresizer></div>
+
+					<div class="project_content">
+						{{#if_option "title_in_project"}}
+						  {{#if project.show_title}}
+							<div class="project_title">
+							  {{{ project.title }}}
+							</div>
+						  {{/if}}
+						{{/if_option}}
+
+						{{print "project.content"}}
+
+						<div class="project_footer">
+
+						  {{#if project.date}}
+							<span class="date">
+							  {{ project.date }}
+							</span>
+						  {{/if}}
+
+						  {{#if project.tags}}
+							<span class="tags">
+							  Filed under
+							  {{#project.tags}}<span><a href="{{ filter_link }}">{{ tag }}</a></span>{{/project.tags}}
+							</span>
+						  {{/if}}
+
+						  {{#if_option "view_count_in_project"}}
+							<span class="views">({{ project.views }} views)</span>
+						  {{/if_option}}
+
+						  {{#if site.is_editor}}
+							<span class="editlink">
+							  <a href="{{ site.direct_link }}/admin/{{ project.id }}" target="_top">Edit</a>
+							</span>
+						  {{/if}}
+
+						</div>
+
+					</div>
+
+					<directlink link="{{ project.direct_link }}" id="dl_{{ project.id }}"></directlink>
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<div id="index" class="thumbnails clear" data-view="Thumbnail" data-set="Projects">
+
+			{{#projects}}
+				<div class="thumbnail{{#unless_all ../display_options.excerpt_in_thumb ../display_options.title_in_thumb}} no_space{{/unless_all}}" id="item_{{ id }}" data-id="{{ id }}" name="{{ id }}" data-setid="{{ set_id }}">
+
+					<div class="loading" data-loading="{{ id }}">
+						{{>loading_animation}}
+					</div>
+
+					{{! Only display thumbnail size toggler to editors }}
+					{{#if ../site.is_editor}}<a class="toggleSize"></a>{{/if}}
+
+					<a href="{{ url }}" data-id="{{ id }}" rel="history">
+
+						<div class="thumb_image" name="">
+							<img src="{{print "thumb_url"}}" width="{{ thumb_width }}" height="{{ thumb_height }}" data-default="{{print "thumb_url"}}" {{#if thumb_url_2x}} data-hi-res="{{ thumb_url_2x }}" {{/if}} {{#if thumb_url_4x}} data-4x="{{ thumb_url_4x }}" {{/if}}>
+						</div>
+
+						{{#if_option "title_in_thumb"}}
+							<div class="thumb_title">
+								<span>{{{ title }}}</span>
+							</div>
+						{{/if_option}}
+
+						{{#if_option "excerpt_in_thumb"}}
+							<div class="thumb_excerpt">
+								{{#if_option "title_in_thumb"}}
+									{{#if excerpt}}—{{/if}}
+								{{/if_option}}
+								<span>{{ excerpt }}</span>
+							</div>
+						{{/if_option}}
+
+					</a>
+
+					{{#if_option "tags_in_thumb"}}
+						<div class="thumb_tags">
+							{{#tags}}
+							<span class="thumb_tag"><a href="{{ filter_link }}">{{ tag }}</a></span>
+							{{/tags}}
+						</div>
+					{{/if_option}}
+				</div>
+			{{/projects}}
+
+		</div>
+
+		{{#if route.is_set}}
+	  <div class="set_footer show_index">
+		<a href="{{ site.direct_link }}">View all</a>
+	  </div>
+	{{/if}}
+
+		<div id="autopaginate_loader" class="moreload" data-view="Autopaginate" data-preload_distance="1750">
+			{{>loading_animation}}
+		</div>
+
+{{/route}}
+
+
+{{#route search "/search"}}
+
+		<div id="search" class="search" data-view="Search">
+			<div action="#" class="search_form_results" id="search_form_results">
+				<div class="search_header">Search results for </div>
+				<input type="text" value="{{ search.term }}" id="results_search_term">
+			</div>
+			{{#search}}
+				{{#projects}}
+				<div class="result">
+					<div class="search_thumb">
+						<a href="{{ direct_link }}">
+							<img border="0" align="left" src="{{ thumb_url }}">
+						</a>
+					</div>
+					<div class="search_text">
+						<div class="search_title">
+							<a href="{{ direct_link }}">{{ title }}</a>
+						</div>
+						<div class="search_body">
+							{{ excerpt }}
+						</div>
+						<div class="search_tags">
+							{{#tags}}
+								<span class="thumb_tag"><a href="{{ filter_link }}">{{ tag }}</a></span>
+							{{/tags}}
+						</div>
+					</div>
+				</div>
+				{{/projects}}
+			{{/search}}
+		</div>
+
+{{/route}}
+
+
+	</body>
+</html>

@@ -41,7 +41,7 @@ $(function() {
 
 Site.Index = {
 
-	gutter		: 40, // can be set in custom HTML by – var thumbnail_gutter = 10;
+	gutter		: 10, // can be set in custom HTML by – var thumbnail_gutter = 10;
 	size		: 0,
 	scrollTop	: 0,
 	masoned		: false,

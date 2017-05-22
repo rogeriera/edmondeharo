@@ -561,10 +561,6 @@ Site.Project = {
 			vein.inject('body[data-pagetype="project"]:not(.mobile) .project_content', {
 				'width' : contentWidth + 'px'
 			});
-
-			vein.inject(['body:not(.mobile) .project_header', '.project_nav', 'body[data-pagetype="project"]:not(.mobile) .project_content'], {
-				'margin-left' : marginWidth + 'px',
-			});
 		}
 
 		// Set the nav vertical size in increments of 1

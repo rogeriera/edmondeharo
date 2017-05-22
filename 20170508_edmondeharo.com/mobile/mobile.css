@@ -221,6 +221,10 @@ body.svg_disabled .toolset .navigation_toggle {
 	padding-bottom: 24px;
 }
 
+.project_media img {
+    margin-left: 0;
+}
+
 br {
 	clear: both;
 }

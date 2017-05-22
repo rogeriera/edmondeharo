@@ -286,6 +286,7 @@ body.phone .filter {
 
 .project {
     display: none;
+    margin-top: 150px;
     padding-left: 60px;
     padding-right: 60px;
     min-width: 320px;
@@ -307,7 +308,7 @@ body.phone .project {
     font-family: sans-serif;
     font-size: 14px;
     width: 300px;
-    padding: 26px 0 0 40px;
+    margin-top: 100px;
     position: fixed;
     top: 0;
     z-index: 999;
@@ -404,9 +405,7 @@ body.phone .project_nav a.show_index_icon {
     padding-top: 130px;
 }
 
-.entry.size_2 {
-    padding-top: 157px;
-}
+.entry.size_2 {}
 
 .entry.size_3 {
     padding-top: 184px;
@@ -463,7 +462,7 @@ body.phone .project_content {
 }
 
 body:not(.mobile):not([data-pagetype="page"]) .project_content {
-    padding: 60px 0 0 40px;
+    padding: 60px 0 0 0;
     position: fixed;
 }
 
@@ -518,7 +517,14 @@ body[data-pagetype="page"].phone .project_content {
 .project_media img {
     display: block;
     margin-bottom: 40px;
+    margin-left: 400px;
     border: 0;
+}
+
+@media screen and (max-width: 1036px) {
+    .project_media img {
+        margin-left: 0;
+    }
 }
 
 body.phone .project_media img {
@@ -843,7 +849,7 @@ body.phone .project_footer {
     margin: 0 auto;
     min-width: 280px;
     visibility: hidden;
-    margin-top: 100px;
+    margin-top: 150px;
     padding: 0 20px 60px 60px;
 }
 
@@ -917,6 +923,10 @@ body.phone .thumbnail {
     margin: 0 auto;
 }
 
+.thumbnail .thumb_image img:hover {
+    opacity: 0.6;
+}
+
 .thumbnail.default_thumb .thumb_image {
     background: #333;
     width: 100%;
@@ -938,10 +948,16 @@ body.phone .thumbnail {
     z-index: 3;
 }
 
-.thumbnail .thumb_text {}
+.thumbnail .thumb_text {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    right: 15px;
+    opacity: 0;
+}
 
 .thumbnail .thumb_title {
-    display: inline;
+    display: block;
     color: #000;
     font-weight: bold;
 }
@@ -984,8 +1000,8 @@ body.phone .thumbnail {
 }
 
 .thumbnail .thumb_excerpt {
-    display: inline;
-    color: #777;
+    display: block;
+    color: #000;
 }
 
 body[data-pagetype="page"] .set_footer {
@@ -1043,6 +1059,10 @@ body[data-pagetype="page"] .set_footer {
 
 .thumbnail:hover .toggleSize:active {
     opacity: 0.7;
+}
+
+.thumbnail:hover .thumb_text {
+    opacity: 1;
 }
 
 

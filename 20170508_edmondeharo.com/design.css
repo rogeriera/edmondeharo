@@ -304,6 +304,7 @@ body.phone .project {
 }
 
 .project_nav {
+    display: none !important;
     font-weight: bold;
     font-family: sans-serif;
     font-size: 14px;
@@ -450,7 +451,6 @@ body.phone .entry.size_4 {
 .project_content {
     clear: both;
     max-width: 600px;
-    font-weight: bold;
 }
 
 body.phone .project_content {
@@ -514,6 +514,10 @@ body[data-pagetype="page"].phone .project_content {
     height: 100% !important;
 }
 
+.project_media {
+    margin: 0 auto;
+}
+
 .project_media img {
     display: block;
     margin-bottom: 40px;
@@ -533,6 +537,7 @@ body.phone .project_media img {
 
 .project_content br {
     clear: both;
+    display: none;
 }
 
 .project_content a {
@@ -850,7 +855,7 @@ body.phone .project_footer {
     min-width: 280px;
     visibility: hidden;
     margin-top: 150px;
-    padding: 0 20px 60px 60px;
+    padding: 0 60px 60px 60px;
 }
 
 body.phone #index {
@@ -864,7 +869,7 @@ body[data-view="index"] .thumbnails {
 
 .thumbnail {
     text-align: left;
-    margin-bottom: 20px;
+    margin-bottom: 0;
     position: relative;
     font-size: 14px;
     overflow: hidden;
@@ -910,7 +915,7 @@ body.phone .thumbnail {
     background-size: contain;
     background-repeat: no-repeat;
     position: relative;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .thumbnail.no_space .thumb_image {
@@ -924,7 +929,7 @@ body.phone .thumbnail {
 }
 
 .thumbnail .thumb_image img:hover {
-    opacity: 0.6;
+    opacity: 0.2;
 }
 
 .thumbnail.default_thumb .thumb_image {

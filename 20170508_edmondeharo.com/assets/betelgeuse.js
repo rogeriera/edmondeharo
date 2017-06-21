@@ -174,6 +174,7 @@ Site.Index = {
 				$excerpt.text(newText[0] + '.');
 			}
 		}
+		console.log($excerpt.text());
 
 	},
 
@@ -763,7 +764,6 @@ Cargo.Event.ShowProjectTransition = function(pid, project_markup, project_model)
 
 				$(".entry, .project_nav")
 					.css({
-						'display' : 'block',
 						'opacity' : '0'
 					})
 					.animate({
